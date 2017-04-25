@@ -1,3 +1,12 @@
+R06 - Ben Weidenhofer [31/07/2010 2:33AM]
+---------
+- Added "settings.h" to hold all attributes and stuff
+- intro.c cleaned up
+- A few backgrounds & sprites have now been made
+- A makefile is now in place, so you can just type "make" 
+  instead of having to go through the whole command
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R05 - Ben Weidenhofer [30/07/2010 4:45AM]
 ---------
 - Cleaned up intro.c

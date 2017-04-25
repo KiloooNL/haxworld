@@ -10,27 +10,11 @@
 //  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////
 
-#include "SDL/SDL.h" 
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+#include "SDL/SDL_ttf.h"
+#include "settings.h"
 #include <string> 
-
-//The attributes of the screen 
-const int SCREEN_WIDTH = 640; 
-const int SCREEN_HEIGHT = 480; 
-const int SCREEN_BPP = 32;
-
-SDL_Surface* intro = NULL;   // intro
-SDL_Surface* screen = NULL;  // screen
-SDL_Surface* loading = NULL; // when loading
-SDL_Event event;
-
-// Clean Up
-void clean_up() {
-	SDL_FreeSurface(intro); // free surface, release memory so there's no leaks
-	SDL_FreeSurface(loading);
-
-	SDL_Quit();		// quit
-}
-
 
 SDL_Surface *load_image(std::string filename) { 
 
@@ -45,6 +29,7 @@ SDL_Surface *load_image(std::string filename) {
 		SDL_FreeSurface(loadedImage); 
 	} 
 	else {
+		ERROR_NUM = ERROR_NUM + 1;
 		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
 		clean_up();	
 	}
@@ -72,6 +57,7 @@ int main( int argc, char* args[] ) {
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
 	if(screen == NULL) 
 	{ 
+		ERROR_NUM = ERROR_NUM + 1;
 		printf("\nError: Could not set resolution of %i x %i with %i BPP.\nExiting now!\n",SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP); 
 		return 1; 
 	} 
@@ -83,13 +69,17 @@ int main( int argc, char* args[] ) {
 	loading = load_image("images/loading.bmp"); 
 
 	if(intro == NULL) {
+		ERROR_NUM = ERROR_NUM + 1;
 		printf("\nError: could not load resource image: images/intro.bmp. Exiting now!\n");
 		clean_up();	
-	} else if(loading == NULL) {
+	} else {
+	}
+
+	if(loading == NULL) {
+		ERROR_NUM = ERROR_NUM + 1;
 		printf("\nError: could not load resource image: images/loading.bmp. Exiting now!\n");
 		clean_up();
  	} else { 
-
 	}
 
 	bool quit = false;
@@ -114,9 +104,7 @@ int main( int argc, char* args[] ) {
 				if(quit == true)
 				{
 					printf("\nUser has exited manually.\n");
-					printf("\nCleaning up...\n");
 					clean_up();
-					printf("\nCleaned up successfully\n");
 					return 0; 
 				}
 			}
