@@ -29,10 +29,9 @@ static void clean_up() {
 	// Free surfaces
 	SDL_FreeSurface(intro);
 	SDL_FreeSurface(loading);
-	apply_surface(0, 0, quitter, screen);
 
+	apply_surface(0, 0, quitter, screen);
 	SDL_Flip(screen);
-	
 	SDL_Delay(2000);
 	SDL_FreeSurface(quitter);
 
@@ -106,7 +105,7 @@ int main( int argc, char* args[] ) {
 	
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
-	apply_surface(111, 230, loading, screen);
+	apply_surface(111, 330, loading, screen);
 
 	// update the screen
 	if(SDL_Flip(screen) == -1) {
@@ -118,7 +117,7 @@ int main( int argc, char* args[] ) {
 			
 			// if user X'ed out of the window
 			if(event.type == SDL_QUIT) {
-				while(Mix_Playing(channel) != 0);
+				//while(Mix_Playing(channel) != 0);
 				Mix_FreeChunk(sound);
 				Mix_CloseAudio();
 				//quit
