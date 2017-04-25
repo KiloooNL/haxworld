@@ -19,7 +19,8 @@ For Ubuntu (and probably debian), you need the following packages to compile:
 - libzzip-dev
 
 Normal terminal:
-cd ~/HaxWorld/src
+cd ~/Desktop
+cd "hax world"
 g++ -o HaxWorld intro.c -lSDL
 
 When using images libraries, just add -lSDL_image to the attributes.
