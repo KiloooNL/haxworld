@@ -1,5 +1,5 @@
 CC = g++
-FILES = framerate_test.c
+FILES = intro.c menu.c
 OUT_EXE = haxworld
 
 build: $(FILES)

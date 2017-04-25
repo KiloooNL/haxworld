@@ -1,3 +1,8 @@
+R11 - Ben Weidenhofer [03/07/2010 9:33AM]
+---------
+- Fixed the major Mix_OpenAudio(); bug
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R10 - Ben Weidenhofer [03/07/2010 4:56AM]
 ---------
 - More variables and declerations moved into settings.h,

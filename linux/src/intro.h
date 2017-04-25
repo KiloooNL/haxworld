@@ -42,6 +42,7 @@ Mix_Chunk *sound = NULL;
 
 void clean_up() {
 	// Free Surfaces
+	SDL_FreeSurface(menubg);
 	SDL_FreeSurface(intro);
 	SDL_FreeSurface(loading);
 	SDL_FreeSurface(screen);
