@@ -38,9 +38,11 @@
     <CompileTarget>Bin</CompileTarget>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="settings.h" />
+    <None Include="define.h" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="intro.cpp" />
+    <Compile Include="animation.cpp" />
+    <Compile Include="audio.cpp" />
   </ItemGroup>
 </Project>
