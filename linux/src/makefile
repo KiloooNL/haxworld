@@ -1,5 +1,5 @@
 CC = g++
-FILES = intro.c
+FILES = intro.c menu.c animation.c
 OUT_EXE = haxworld
 
 build: $(FILES)

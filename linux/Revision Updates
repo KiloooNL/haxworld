@@ -1,3 +1,20 @@
+R12 - Ben Weidenhofer [05/07/2010 10:52PM]
+---------
+- This release is BIG!
+- Settings.h has been deleted as I coded it all wrong, it has now been
+  replaced with define.h which is properly formatted and coded
+- Fixed a major bug were haxworld would not exit unless killed, due to the
+  fact SDL_Surface(); was trying to free surfaces of surfaces that hadn't 
+  even been initialized!
+- Animation coding has BEGUN! I'm hoping to at least get the game at a playable
+  state within the next 10 revisions, so stay tuned
+- As stated above with the animation, it is now is animation.c
+- Makefile updated
+- One thing debuggers will notice is that the otherwise very well informative
+  errors have now been removed from the terminal, due to it making errors in the game
+  itself. This will be back up soon, so don't strain yourself!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R11 - Ben Weidenhofer [03/07/2010 9:33AM]
 ---------
 - Fixed the major Mix_OpenAudio(); bug
