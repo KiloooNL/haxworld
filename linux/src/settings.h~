@@ -14,7 +14,7 @@ SDL_Event event;
 void clean_up() {
 	SDL_FreeSurface(intro); // free surface, release memory so there's no leaks
 	SDL_FreeSurface(loading);
-	SDL_FreeSurface(screen); // shit, forgot to put this in... realized on R07
+	SDL_FreeSurface(screen);
 	printf("\nCleaning up...");
 	printf("\nCleaned up successfully\n");
 	SDL_Quit();		// quit

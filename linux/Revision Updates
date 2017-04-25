@@ -1,3 +1,11 @@
+R07 - Ben Weidenhofer [01/07/2010 12:35PM]
+---------
+- Fixed a bug in settings.h: SDL_FreeSurface(screen);
+  Can't believe I actually forgot to free the surface of screen *facepalm*
+- Added "Todo" so if you'd like to contribute there's 
+  stuff to work on side that
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R06 - Ben Weidenhofer [31/07/2010 2:33AM]
 ---------
 - Added "settings.h" to hold all attributes and stuff
