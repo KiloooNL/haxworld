@@ -10,7 +10,7 @@
 //  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////
 
-#include "define.h" 
+#include "define.h"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
 int audio_channels = 2;
@@ -24,7 +24,7 @@ SDL_Surface* screen = NULL;  // screen
 SDL_Surface* loading = NULL; // when loading
 SDL_Event event;
 
-void clean_up() {
+static void clean_up() {
 	// Free surfaces
 	SDL_FreeSurface(intro);
 	SDL_FreeSurface(loading);
@@ -32,7 +32,7 @@ void clean_up() {
 	SDL_Quit();
 }
 
-SDL_Surface *load_image(std::string filename) { 
+static SDL_Surface *load_image(std::string filename) { 
 
 	SDL_Surface* loadedImage = NULL; 
 	SDL_Surface* optimizedImage = NULL; 
@@ -50,16 +50,6 @@ SDL_Surface *load_image(std::string filename) {
 	}
 
 	return optimizedImage; 
-} 
-
-void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
-
-	SDL_Rect offset; 
-
-	offset.x = x; 
-	offset.y = y;
-	
-	SDL_BlitSurface(source, NULL, destination, &offset); 
 } 
 
 int main( int argc, char* args[] ) { 

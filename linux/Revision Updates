@@ -1,3 +1,10 @@
+R13 - Ben Weidenhofer [06/07/2010 4:15AM]
+---------
+- A lot of definitions in define.h and intro.c are now static to stop
+  conflict with menu.c and other sources (had to do this otherwise it's far too
+  much work and if i didn't the next revision wouldn't function)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R12 - Ben Weidenhofer [05/07/2010 10:52PM]
 ---------
 - This release is BIG!
