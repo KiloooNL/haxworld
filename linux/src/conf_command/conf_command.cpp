@@ -1,48 +1,62 @@
+#include <iomanip>
 #include <iostream>
+#include <fstream>
 #include <stdio.h>
-
 using namespace std;
 
-int main(int argc, char* args[]) {
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+
+char name[80];
+int res_width = SCREEN_WIDTH;
+int res_height = SCREEN_HEIGHT;
+bool blood = true;
+int volume = 100;
+ifstream config;
+
+int main() {
 	printf("\nHaxWorld Configuration (Terminal/Command Prompt Version)\n");
+    	config.open("config.cfg");
+    	if (!config) { // if config can't be found, create a new one
+        	cout << "Unable to open \"config.cfg\" - creating a new configuration.\n";
+          	ofstream myfile;
+          	myfile.open ("config.cfg");
+          	myfile << "[HaxWorld auto generated config]\nname = haxworld\nres_width = 800\nres_height = 600\nblood = true\nvolume = 100\n";
+          	myfile.close();
+    	}	 
         // characters name
-        char name[80];
         cout << "Enter characters name: ";
         cin >> name;
-    
-        // default resolution, 800x600
-        int x = 800;
-        int y = 600;
-        cout << "\nEnter resolution width: ";
-        cin >> x;
-        cout << "Enter resolution height: ";
-        cin >> y;
 
-	if(x, y == 800, 600) {
+        // default resolution, 800x600
+        cout << "\nEnter resolution width: ";
+        cin >> res_width;
+        cout << "Enter resolution height: ";
+        cin >> res_height;
+
+	if(res_width, res_height == 800, 600) {
         	cout << "\n(RESOLUTION CHOSEN: 800x600 - Default)\n";
 	}
 	else {
-        	cout << "\n(RESOLUTION CHOSEN: " << x << "x" << y << ")\n";
+        	cout << "\n(RESOLUTION CHOSEN: " << res_width << "x" << res_height << ")\n";
 	}
     
         // blood enabled?
-        int blood_enabled = 0;
         cout << "\nBlood enabled?\n0 = yes\n1 = no\n";
-        cin >> blood_enabled;
+        cin >> blood;
     
         // volume
-        int volume = 100;
         cout << "\nSound & Music volume (Anywhere between 0-100): ";
         cin >> volume;
     
-        //system("CLS");
+        //system("clear");
     
         // show settings
         cout << "Settings:";
         cout << "\nCharacter name: " << name;
-        cout << "\nResolution: " << x << "x" << y;
+        cout << "\nResolution: " << res_width << "x" << res_height;
     
-        if(blood_enabled == 0) {
+        if(blood == 0) {
                 cout << "\nBlood: yes";
         } else {
                 cout << "\nBlood: no";
@@ -55,10 +69,16 @@ int main(int argc, char* args[]) {
         cin >> correct;
         
 	if(correct == 0) {
-                cout << "\nSettings have been saved to \"conf.cfg\"\n";
+		ofstream myfile;
+        	myfile.open ("config.cfg");
+        	myfile << "name = " << name << "\n" << "resolution = " << res_width << "x" << res_height << "\nblood = " << blood << "\nvolume = " << volume << "\n";
+        	myfile.close(); 
+                cout << "\nSettings have been saved to \"config.cfg\"\n";
         } else {
                 cout << "\nSettings have not been saved.\n";
-        }
+        }   
 
+    	config.close();
+    	cout << "Resolution = " << res_width << "x" << res_height << endl; 
 	return 0;
 }

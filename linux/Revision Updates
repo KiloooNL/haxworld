@@ -1,3 +1,13 @@
+R20 - Ben Weidenhofer [21/08/2010 10:14PM]
+--------
+- The conf_command tool now works 100%
+- Moved stuff to "video.c", this will be used as the animation but thus far I'm not going to make the game playable
+  as I need to make more sprites...
+- Added a couple more sounds from the Mario Super Bro's video game.
+- Added "lazy.ttf" - this will be the main font for drawText (which I'm still yet to implement.)
+- No longer using "toneage.wav" for the intro... it started annoying me vaguely after a while xD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 R19 - Ben Weidenhofer [19/08/2010 12:43AM]
 --------
 - Moved the load_image function to "load_image.h"

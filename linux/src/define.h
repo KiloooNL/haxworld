@@ -25,6 +25,9 @@
 #define SCREEN_HEIGHT 480
 #define SCREEN_BPP 32
 
+// Sprites
+#define SPRITE_SIZE 32
+
 // Error numbers (for debugging)
 #define ERROR_NUM 0
 
@@ -69,8 +72,7 @@ void show();
 };
 
 // Text
-void drawText (SDL_Surface *screen, int font, int x, int y, const char* text);
-void drawTextAlpha (SDL_Surface *screen, int font, int alpha, int x, int y, const char* text);
+void drawText(SDL_Surface *screen, TTF_Font* font, const char* text);
 
 static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
 

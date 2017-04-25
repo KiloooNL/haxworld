@@ -9,6 +9,8 @@
 
 #include "define.h"
 #include "loadimage.h"
+#include "config.c"
+#include "video.c"
 #include "version.c"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
@@ -21,9 +23,9 @@ bool quit = false;
 Mix_Chunk *sound = NULL;
 
 SDL_Surface* intro = NULL;   // intro
-SDL_Surface* screen = NULL;  // screen
 SDL_Surface* options_bg = NULL; // options menu
 SDL_Surface* loading = NULL; // when loading
+SDL_Surface* screen = NULL;
 SDL_Surface* quitter = NULL; // picture for exit B-)
 SDL_Surface* background = NULL;
 SDL_Surface* spritechar = NULL; // client's character sprite
@@ -35,7 +37,13 @@ SDL_Surface* option = NULL;
 SDL_Surface* about = NULL;
 SDL_Surface* ex = NULL;
 
-SDL_Event event;
+static SDL_Event event;
+
+/* 
+NOTE:
+        HaxWorld will compile though it will not be able to exit unless forced
+        if you try to free a surface that is NULL!
+*/ 
 
 static void clean_up_menu () {
 	SDL_FreeSurface(background);
@@ -84,7 +92,10 @@ int main(int argc, char* args[]) {
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1) { 
 		return 1; 
 	} 
+	SDL_WM_SetCaption("Hax World", NULL); 
 	
+	config(); // loads the config
+
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
 	if(screen == NULL) { 
 		printf("\nCould not set resolution of: %ix%i \nError details: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
@@ -96,7 +107,7 @@ int main(int argc, char* args[]) {
 		exit(1);
 	}
  
-	sound = Mix_LoadWAV("data/music/toneage.wav");
+	sound = Mix_LoadWAV("data/music/super-mario-intro.ogg");
 	if(sound == NULL) {
 		printf("\nUnable to load WAV file: %s\n", Mix_GetError());
 	}
@@ -105,7 +116,6 @@ int main(int argc, char* args[]) {
 	if(channel == -1) {
 		fprintf(stderr, "\nUnable to play WAV file: %s\n", Mix_GetError());
 	}
-	SDL_WM_SetCaption("Hax World", NULL); 
 
 	// Load the images 
 	intro = load_image("images/intro.bmp"); 
@@ -162,24 +172,21 @@ int main(int argc, char* args[]) {
 			//If a key was pressed 
 			else if(event.type == SDL_KEYDOWN) {
 				switch(event.key.keysym.sym) { 
-					case SDLK_ESCAPE:
+					case SDLK_ESCAPE: // esc
 						quit = true;
 						break;
-					case SDLK_RETURN:
-						options_bg = load_image("images/background.bmp");
-						apply_surface(0, 0, options_bg, screen);
-						clean_up_menu();
-						SDL_Flip(screen);
+					case SDLK_RETURN: // enter
+						move();
 						break;
 					
-					case SDLK_UP: 
+					case SDLK_UP:     // up
 						sp = load_image("images/buttons/sp_select.bmp");
 						mp = load_image("images/buttons/mp.bmp");
 						apply_surface(207, 189, mp, screen);
 						apply_surface(207, 129, sp, screen);
 						SDL_Flip(screen);
 						break; 
-					case SDLK_DOWN: 
+					case SDLK_DOWN:   // down
 						mp = load_image("images/buttons/mp_select.bmp");
 						sp = load_image("images/buttons/sp.bmp");
 

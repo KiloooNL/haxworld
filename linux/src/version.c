@@ -11,8 +11,8 @@
 // At the moment I'm not sure how to make this automatic... so sadly you'll
 // have to edit this each build. I'll be working on making this automatic later on :)
 #include "define.h"
-static int revision = 19; // revision number here
+static int revision = 20; // revision number here
 
-void version() {
+static void version() {
 	printf("\nRevision: %i", revision);
 }
