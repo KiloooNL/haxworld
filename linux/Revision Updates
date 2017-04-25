@@ -1,3 +1,13 @@
+R23 - Ben Weidenhofer [01/09/2010 3:01PM]
+--------
+- Added "game.c" - This controls and launches game modes (single player & multiplayer)
+- Removed directional keys for menu (for debugging purposes)
+- Surfaces were moved into loadimage.h to make things cleaner
+- Singeplayer development has begun, if you press enter from the main menu it'll launch single player
+- Updated all the files and removed "#include "file"" in heaps as it was causing redefinition errors
+- I think I've done other stuff, I've just done so much I forgot what :P
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 R22 - Ben Weidenhofer [30/08/2010 9:54PM]
 --------
 - Added new sprites in the folder "warrior"

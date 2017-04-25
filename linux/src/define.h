@@ -72,7 +72,7 @@ void show();
 };
 
 // Text
-void drawText(SDL_Surface *screen, TTF_Font* font, const char* text);
+void drawText(SDL_Surface *screen, TTF_Font* font, const char* text, int x, int y);
 
 static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
 

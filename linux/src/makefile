@@ -1,7 +1,7 @@
 # This is the makefile for HaxWorld
 CC = g++
 # Keep files alphabetically sorted for convenience
-FILES = animation.c audio.c config.c define.h intro.c loadimage.h version.c video.c 
+FILES = animation.c audio.c config.c define.h game.c intro.c loadimage.h version.c video.c 
 OUT_EXE = haxworld
 
 # Make sure you add attributes to the end of

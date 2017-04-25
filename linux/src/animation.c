@@ -10,6 +10,8 @@
 //////////////////////////////////////////////
 
 #include "define.h"
+
+static int speed; // character speed
 /*
 SDL_Event eventKB;
 

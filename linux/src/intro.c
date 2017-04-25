@@ -9,28 +9,15 @@
 
 #include "audio.c"
 #include "define.h"
-#include "loadimage.h"
+#include "game.c"
 #include "config.c"
 #include "video.c"
 #include "version.c"
 
 bool quit = false;
 
-SDL_Surface* intro = NULL;   // intro
 SDL_Surface* options_bg = NULL; // options menu
-SDL_Surface* loading = NULL; // when loading
-SDL_Surface* screen = NULL;
-SDL_Surface* quitter = NULL; // picture for exit B-)
-SDL_Surface* background = NULL;
-SDL_Surface* spritechar = NULL; // client's character sprite
-
-// buttons
-SDL_Surface* sp = NULL;
-SDL_Surface* mp = NULL;
-SDL_Surface* option = NULL;
-SDL_Surface* about = NULL;
-SDL_Surface* ex = NULL;
-
+static int cleaned;
 static SDL_Event event;
 
 /* 
@@ -40,6 +27,7 @@ NOTE:
 */ 
 
 static void clean_up_menu () {
+	cleaned = 0;
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(sp);
 	SDL_FreeSurface(mp);
@@ -47,6 +35,7 @@ static void clean_up_menu () {
 	SDL_FreeSurface(about);
 	SDL_FreeSurface(ex);
 	SDL_FreeSurface(spritechar);
+	SDL_Flip(screen);
 }
 
 extern void clean_up() {
@@ -97,28 +86,7 @@ int main(int argc, char* args[]) {
 	} 
  
 	menu_music(); // Initialize & play menu music
-
-	// Load the images 
-	intro = load_image("images/intro.bmp"); 
-	loading = load_image("images/loading.bmp"); 
-	quitter = load_image("images/quitter.bmp");
-	background = load_image("images/menu.bmp");
-	sp = load_image("images/buttons/sp.bmp");
-	mp = load_image("images/buttons/mp.bmp");
-	option = load_image("images/buttons/option.bmp");
-	about = load_image("images/buttons/about.bmp");
-	ex = load_image("images/buttons/exit.bmp");
-	spritechar = load_image("images/sprites/stickman/stickman.bmp");
-
-	if(intro == NULL) {
-		printf("\nError details: %s\n", SDL_GetError());
-		clean_up();	
-	} else if(loading == NULL) {
-		printf("\nError details: %s\n", SDL_GetError());
-		clean_up();
- 	} else { 
-
-	}
+	load_MenuImages();
 	
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
@@ -157,23 +125,36 @@ int main(int argc, char* args[]) {
 						quit = true;
 						break;
 					case SDLK_RETURN: // enter
-						move();
+						if(cleaned == 0) {
+							clean_up_menu();
+						
+							background = load_image("images/background.bmp");
+							apply_surface(0, 0, background, screen);
+							SDL_Flip(screen);
+							single_player();
+						} else {
+							single_player();
+						}
 						break;
 					
 					case SDLK_UP:     // up
+						printf("Directional keys not functionable on menu as of R23");
+						/* not available yet
 						sp = load_image("images/buttons/sp_select.bmp");
 						mp = load_image("images/buttons/mp.bmp");
 						apply_surface(207, 189, mp, screen);
 						apply_surface(207, 129, sp, screen);
-						SDL_Flip(screen);
+						SDL_Flip(screen); */
 						break; 
 					case SDLK_DOWN:   // down
+						printf("Directional keys not functionable on menu as of R23");
+						/* not available yet
 						mp = load_image("images/buttons/mp_select.bmp");
 						sp = load_image("images/buttons/sp.bmp");
 
 						apply_surface(207, 189, mp, screen);
 						apply_surface(207, 129, sp, screen);
-						SDL_Flip(screen);
+						SDL_Flip(screen); */
 						break; 
 				}
 			}
