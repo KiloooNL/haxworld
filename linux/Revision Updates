@@ -1,3 +1,16 @@
+R05 - Ben Weidenhofer [30/07/2010 4:45AM]
+---------
+- Cleaned up intro.c
+- Fixed a couple memory bugs
+- Game is back in progress after months of leaving it...
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R04 - Ben Weidenhofer [19/02/2010 2:50AM]
+---------
+- The menu is vaguely operational
+- Made an animation script to play logo on init();
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R03 - Ben Weidenhofer [18/02/2010 2:03AM]
 ---------
 - Cleaned up more some code

@@ -50,7 +50,7 @@ class Timer
     bool is_paused();
 };
 
-SDL_Surface *load_image(std::string filename)
+SDL_Surface *load_image( std::string filename )
 {
     //The image that's loaded
     SDL_Surface* loadedImage = NULL;

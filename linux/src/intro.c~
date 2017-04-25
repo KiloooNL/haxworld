@@ -39,7 +39,7 @@ SDL_Surface *load_image(std::string filename) {
 
 	loadedImage = SDL_LoadBMP(filename.c_str()); 
 
-	// If nothing went wrong in loading the image 
+	//If nothing went wrong in loading the image 
 	if( loadedImage != NULL ) { 
 		optimizedImage = SDL_DisplayFormat(loadedImage); 
 		SDL_FreeSurface(loadedImage); 
