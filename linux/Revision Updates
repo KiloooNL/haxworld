@@ -1,3 +1,18 @@
+R24 - Ben Weidenhofer [26/03/2011 3:30AM]
+--------
+- Fixed menu buttons...
+- Several changes to:
+	audio.c
+	animation.c
+	define.h
+	game.c
+	intro.c
+	loadimage.h
+	menu.c
+
+- Cleaned up a lot of code, added more debug info and fixed some memory leaks.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 R23 - Ben Weidenhofer [01/09/2010 3:01PM]
 --------
 - Added "game.c" - This controls and launches game modes (single player & multiplayer)

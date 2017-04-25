@@ -1,4 +1,4 @@
-//////////////////////////////////////////////////
+/*/////////////////////////////////////////////////
 //  Hax World			  	        //
 //  --------------------------------------	//
 //  This is the frame rate source for Hax World //
@@ -118,3 +118,4 @@ int main(int argc, char* args[]) {
 	myTimer.start();
 	while( quit == false ) { 
 }
+*/

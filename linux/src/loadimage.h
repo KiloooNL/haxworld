@@ -1,6 +1,6 @@
 #include "define.h"
 
-// Loads an image
+/* COLOR KEYS AND MAIN SURFACES */
 static int color_key; // this is for the transparant images
 static SDL_Surface* screen = NULL;
 
@@ -41,7 +41,7 @@ static SDL_Surface *load_image(std::string filename) {
 	} 
 	else {
 		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
-		//clean_up();	
+		SDL_Quit();	
 	}
 
 	return optimizedImage; 
@@ -58,4 +58,5 @@ static void load_MenuImages() {
 	about = load_image("images/buttons/about.bmp");
 	ex = load_image("images/buttons/exit.bmp");
 	spritechar = load_image("images/sprites/stickman/stickman.bmp");
+	printf("\nMenu images loaded. Now placing each image accordingly.\n");
 }

@@ -14,18 +14,17 @@
 #include "video.c"
 #include "version.c"
 
-bool quit = false;
-
 SDL_Surface* options_bg = NULL; // options menu
 static int cleaned;
-static SDL_Event event;
 
 /* 
 NOTE:
         HaxWorld will compile though it will not be able to exit unless forced
         if you try to free a surface that is NULL!
+	  So for simplicity, please free surface's within the clean_up_menu and clean_up
 */ 
 
+// Used to clean up the MENU.
 static void clean_up_menu () {
 	cleaned = 0;
 	SDL_FreeSurface(background);
@@ -38,6 +37,7 @@ static void clean_up_menu () {
 	SDL_Flip(screen);
 }
 
+//Used when TERMINATING HaxWorld
 extern void clean_up() {
 	printf("\nCleaning up...\n");
 	printf("Freeing surfaces...\n");
@@ -62,10 +62,6 @@ extern void clean_up() {
 
 int main(int argc, char* args[]) { 
 
-
-	// Ok... so basically what I want to do here is code a 'version.c' file that detects the games current build version,
-	// then display it here... but i'm not sure how to do that so far :( so for now just put "version/revision xx"
-
 	// WELCOME MESSAGE
 	printf("\nWelcome to HaxWorld.");
 	// REVISION
@@ -88,6 +84,7 @@ int main(int argc, char* args[]) {
 	menu_music(); // Initialize & play menu music
 	load_MenuImages();
 	
+	printf("Initializing HaxWorld...\n");
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
 	apply_surface(111, 330, loading, screen);
@@ -136,25 +133,66 @@ int main(int argc, char* args[]) {
 							single_player();
 						}
 						break;
-					
+					// buttonpos controls and tells us which button the cursor is currently on.
+					// it's just easier for me...
+					int buttonpos;
 					case SDLK_UP:     // up
-						printf("Directional keys not functionable on menu as of R23");
-						/* not available yet
-						sp = load_image("images/buttons/sp_select.bmp");
-						mp = load_image("images/buttons/mp.bmp");
-						apply_surface(207, 189, mp, screen);
-						apply_surface(207, 129, sp, screen);
-						SDL_Flip(screen); */
+						printf("\nDirectional keys not yet implemented (as of r23).\n");
+						/* THIS CODE IS ACTIVELY IN PROGRESS. DO NOT REMOVE. */
+						if(buttonpos == 0) {
+							buttonpos + 1;
+						} else {
+							if(buttonpos == 1) {
+								sp = load_image("images/buttons/sp_select.bmp");
+								mp = load_image("images/buttons/mp.bmp");
+								apply_surface(207, 189, mp, screen);
+								apply_surface(207, 129, sp, screen);
+								SDL_Flip(screen);
+							
+							} else if (buttonpos == 2) {
+							} else if (buttonpos == 3) {
+							} else {}
+						}
 						break; 
 					case SDLK_DOWN:   // down
-						printf("Directional keys not functionable on menu as of R23");
-						/* not available yet
-						mp = load_image("images/buttons/mp_select.bmp");
-						sp = load_image("images/buttons/sp.bmp");
-
-						apply_surface(207, 189, mp, screen);
-						apply_surface(207, 129, sp, screen);
-						SDL_Flip(screen); */
+						buttonpos = buttonpos -1;
+						printf("\nDirectional keys not yet implemented (as of r23).\n");
+						// THIS CODE IS ACTIVELY IN PROGRESS. DO NOT REMOVE.
+						if (buttonpos == 0) {
+							buttonpos = -1;
+						} else {
+							if(buttonpos == -1) {
+								mp = load_image("images/buttons/mp_select.bmp");
+								sp = load_image("images/buttons/sp.bmp");
+								apply_surface(207, 189, mp, screen);
+								apply_surface(207, 129, sp, screen);
+								SDL_Flip(screen);
+							} else if (buttonpos == -2) {
+								sp = load_image("images/buttons/sp_select.bmp");
+								mp = load_image("images/buttons/mp.bmp");
+								apply_surface(207, 129, sp, screen);
+								apply_surface(207, 189, mp, screen);
+								SDL_Flip(screen);
+							} else if (buttonpos == -3) {
+								option = load_image("images/buttons/option_select.bmp");
+								sp = load_image("images/buttons/sp.bmp");
+								apply_surface(207, 249, option, screen);
+								apply_surface(207, 129, sp, screen);
+								SDL_Flip(screen);
+							} else if (buttonpos == -4) {
+								about = load_image("images/buttons/about_select.bmp");
+								option = load_image("images/buttons/option.bmp");
+								apply_surface(207, 309, about, screen);
+								apply_surface(207, 249, option, screen);
+								SDL_Flip(screen);
+							} else if (buttonpos == -5) {
+								ex = load_image("images/buttons/exit_select.bmp");
+								about = load_image("images/buttons/about.bmp");
+								apply_surface(207, 369, ex, screen);
+								apply_surface(207, 309, about, screen);
+								SDL_Flip(screen);
+							} else {}
+						}
 						break; 
 				}
 			}

@@ -9,7 +9,7 @@ OUT_EXE = haxworld
 
 build: $(FILES)
 	@echo "Remember to edit version.c to change revision number before compiling!\n"
-	@echo "Building...\nFiles: $(FILES)"
+	@echo "Building...\nFiles: $(FILES)\n"
 	@$(CC) -o $(OUT_EXE) $(FILES) -lSDL -lSDL_image -lSDL_ttf -lSDL_mixer
 	@echo "\nDone."
 

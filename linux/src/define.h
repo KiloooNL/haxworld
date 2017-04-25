@@ -31,6 +31,13 @@
 // Error numbers (for debugging)
 #define ERROR_NUM 0
 
+// Other stuff
+static bool quit = false;
+static SDL_Event event;
+
+// Audio
+static Mix_Chunk *sound = NULL;
+
 /* Enumerations */
 typedef enum {
 	DIR_NONE = 0x0,
@@ -58,22 +65,22 @@ typedef struct animation {
 } Animation;
 
 class Character { 
-private:  
-int x, y; 
-int xVel, yVel; 
+	private:  
+		int x, y; 
+		int xVel, yVel; 
 
-public: 
-//Initializes the variables 
-Character(); 
-
-void handle_input(); 
-void move(); 
-void show(); 
+	public: 
+		//Initializes the variables 
+		Character(); 
+		void handle_input(); 
+		void move(); 
+		void show(); 
 };
 
 // Text
 void drawText(SDL_Surface *screen, TTF_Font* font, const char* text, int x, int y);
 
+// Apply Surface
 static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
 
 	SDL_Rect offset; 
@@ -82,6 +89,6 @@ static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 	offset.y = y;
 	
 	SDL_BlitSurface(source, NULL, destination, &offset); 
-} 
+}
 
 #endif
