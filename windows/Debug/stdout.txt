@@ -1,8 +1,0 @@
-
-Welcome to HaxWorld
-
-Revision: 25
-SDL loaded successfully.
-Configuring screen... successful.
-Event (key press): SDLK_F9
-bool quit = true. Exiting now!
