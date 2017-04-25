@@ -1,6 +1,8 @@
 #include "define.h"
 
 // Loads an image
+int color_key; // this is for the transparant images
+
 static SDL_Surface *load_image(std::string filename) { 
 
 	SDL_Surface* loadedImage = NULL; 

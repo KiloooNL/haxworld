@@ -5,6 +5,11 @@ static int gameover;
 /* source and destination rectangles */
 static SDL_Rect rcSrc, rcSprite;
 
+// still in progress
+static void move_Sprite(SDL_Surface*, int x, int y) {
+
+}
+
 static void HandleEvent(SDL_Event event)
 {
 	switch (event.type) {

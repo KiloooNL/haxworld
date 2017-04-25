@@ -23,40 +23,40 @@ SDL_Event event;
 
 //The timer 
 class Timer { 
-private: 
-int startTicks; 
-int pausedTicks; 
-bool paused; 
-bool started; 
+	private: 
+	int startTicks; 
+	int pausedTicks; 
+	bool paused; 
+	bool started; 
 
-public: 
-Timer(); 
-void start(); 
-void stop(); 
-void pause(); 
-void unpause(); 
-int get_ticks(); 
-bool is_started(); 
-bool is_paused(); 
+	public: 
+	Timer(); 
+	void start(); 
+	void stop(); 
+	void pause(); 
+	void unpause(); 
+	int get_ticks(); 
+	bool is_started(); 
+	bool is_paused(); 
 }; 
 
 Timer::Timer() { 
-//Initialize the variables 
-startTicks = 0; 
-pausedTicks = 0; 
-paused = false; 
-started = false; 
+	//Initialize the variables 
+	startTicks = 0; 
+	pausedTicks = 0; 
+	paused = false; 
+	started = false; 
 } 
 
 void Timer::start() { 
-started = true; 
-paused = false; 
-startTicks = SDL_GetTicks(); 
+	started = true; 
+	paused = false; 
+	startTicks = SDL_GetTicks(); 
 } 
 
 void Timer::stop() { 
-started = false; 
-paused = false; 
+	started = false; 
+	paused = false; 
 }
 
 int Timer::get_ticks() { 
@@ -67,7 +67,7 @@ int Timer::get_ticks() {
 		return SDL_GetTicks() - startTicks; 
 		} 
 	}
-return 0; 
+	return 0; 
 }  
 
 void Timer::pause() { 
@@ -89,7 +89,7 @@ bool Timer::is_started() {
 	return started; 
 } 
 bool Timer::is_paused() { 
-return paused; 
+	return paused; 
 } 
 
 void stuff() {

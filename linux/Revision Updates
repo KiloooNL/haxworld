@@ -1,3 +1,10 @@
+R22 - Ben Weidenhofer [30/08/2010 9:54PM]
+--------
+- Added new sprites in the folder "warrior"
+- Cleaned up the makefile
+- Cleaned up audio.c, config.c, framerate_test.c & video.c
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 R21 - Ben Weidenhofer [30/08/2010 10:00AM]
 --------
 - I messed up a huge thing with conf_command by setting the default resolution to 800x600, but it's actually 640x480
