@@ -1,0 +1,26 @@
+Dependencies:
+- SDL          >= 1.2.13
+- SDL_net      >= 1.2.7
+- SDL_image    >= 1.2.7-1
+- SDL_mixer    >= 1.2.8
+- zziplib      >= 0.13.57
+- libConfuse   >= 2.6
+
+These packages may have their own deps as well.
+The listed versions are just the versions on my development box.
+Older versions of these libs may work as well.
+
+For Ubuntu (and probably debian), you need the following packages to compile:
+- libsdl1.2-dev
+- libsdl-image1.2-dev
+- libsdl-net1.2-dev
+- libsdl-mixer1.2-dev
+- libconfuse-dev
+- libzzip-dev
+
+Normal terminal:
+cd ~/HaxWorld/src
+g++ -o HaxWorld intro.c -lSDL
+
+When using images libraries, just add -lSDL_image to the attributes.
+

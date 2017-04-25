@@ -1,0 +1,10 @@
+// config for HaxWorld
+
+resolution = 640x480 // width x height
+detail = high // graphics detail settings: low, medium, high. high is the only available at the moment.
+name = "unnamed" // username to appear on single and multiplayer (not yet available)
+fullscreen = false
+volume = 100
+transparent-color = 00ffff // DO NOT CHANGE. FOR DEBUGGING PURPOSES ONLY.
+
+// end of config

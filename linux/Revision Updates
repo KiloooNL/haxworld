@@ -1,0 +1,209 @@
+R24 - Ben Weidenhofer [26/03/2011 3:30AM]
+--------
+- Fixed menu buttons...
+- Several changes to:
+	audio.c
+	animation.c
+	define.h
+	game.c
+	intro.c
+	loadimage.h
+	menu.c
+
+- Cleaned up a lot of code, added more debug info and fixed some memory leaks.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R23 - Ben Weidenhofer [01/09/2010 3:01PM]
+--------
+- Added "game.c" - This controls and launches game modes (single player & multiplayer)
+- Removed directional keys for menu (for debugging purposes)
+- Surfaces were moved into loadimage.h to make things cleaner
+- Singeplayer development has begun, if you press enter from the main menu it'll launch single player
+- Updated all the files and removed "#include "file"" in heaps as it was causing redefinition errors
+- I think I've done other stuff, I've just done so much I forgot what :P
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R22 - Ben Weidenhofer [30/08/2010 9:54PM]
+--------
+- Added new sprites in the folder "warrior"
+- Cleaned up the makefile
+- Cleaned up audio.c, config.c, framerate_test.c & video.c
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R21 - Ben Weidenhofer [30/08/2010 10:00AM]
+--------
+- I messed up a huge thing with conf_command by setting the default resolution to 800x600, but it's actually 640x480
+  so that's been fixed
+- Moved all the audio stuff to "audio.c"
+- Cleaned up some code
+- FYI: Today is my birthday, I'm 15 years old now.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R20 - Ben Weidenhofer [21/08/2010 10:14PM]
+--------
+- The conf_command tool now works 100%
+- Moved stuff to "video.c", this will be used as the animation but thus far I'm not going to make the game playable
+  as I need to make more sprites...
+- Added a couple more sounds from the Mario Super Bro's video game.
+- Added "lazy.ttf" - this will be the main font for drawText (which I'm still yet to implement.)
+- No longer using "toneage.wav" for the intro... it started annoying me vaguely after a while xD
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+R19 - Ben Weidenhofer [19/08/2010 12:43AM]
+--------
+- Moved the load_image function to "load_image.h"
+- Added "video.c", this will hold the video stuff, though animation.c is seperate
+- Fixed some minor bugs with SDL_KEYDOWN
+- Made an image called "Credits.bmp", this will be the main image for credits, which I'm still yet
+  to compile a menu button for
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+R18 - Ben Weidenhofer [16/08/2010 6:51PM]
+--------
+- Added version.c - though at the moment you'll have to enter revision number manually
+- Added "conf_command.c" (this is a seperate program for creating automatic configs)
+- A couple menu buttons now work... more to come 
+- Fixed a couple bugs
+- Added some more stuff to make compiling more helpful for debuggers
+- Fixed this file... I didn't notice but I kept putting revisions in July when it's August
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R17 - Ben Weidenhofer [09/08/2010 6:51PM]
+--------
+- Fixed quitter.bmp (was in the wrong resolution)
+- Added color mapping for transparency in images (00FFFF)
+- Fixed a couple of images as they were in PNG format,
+  SDL_image only accepts BMP
+- I upgraded Ubuntu to 10.04 and it removed the SDL libraries for some reason
+  and until I can get on the internet looks like it'll be a while until the
+  next revision will be out. Sorry
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R16 - Ben Weidenhofer [08/08/2010 3:49PM]
+--------
+- Menu is now being coded, and images for it have been created
+- Fixed menu.bmp - it was in 640x400 resolution, the game runs in 640x480
+  so the display just wouldn't look right
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R15 - Ben Weidenhofer [08/08/2010 4:20AM]
+--------
+- New logo
+- A couple of new images
+- Deleted "while(Mix_Playing(channel) != 0);" in intro.c, as it gets annoying
+  when you have to wait for the audio to finish playing before you can exit.
+  Thus, game will now close the audio and exit immediately instead of waiting
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R14 - Ben Weidenhofer [08/08/2010 3:27AM]
+---------
+- Added an image if user quits (this image was taken from ChaoticRage,
+  so I'm not sure if I'm allowed to use it yet I DID create the image;
+  so I guess I own the right to...)
+- A couple of audio/sound effects have been made (these will be used later on)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R13 - Ben Weidenhofer [06/08/2010 4:15AM]
+---------
+- A lot of definitions in define.h and intro.c are now static to stop
+  conflict with menu.c and other sources (had to do this otherwise it's far too
+  much work and if i didn't the next revision wouldn't function)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R12 - Ben Weidenhofer [05/08/2010 10:52PM]
+---------
+- This release is BIG!
+- Settings.h has been deleted as I coded it all wrong, it has now been
+  replaced with define.h which is properly formatted and coded
+- Fixed a major bug were haxworld would not exit unless killed, due to the
+  fact SDL_Surface(); was trying to free surfaces of surfaces that hadn't 
+  even been initialized!
+- Animation coding has BEGUN! I'm hoping to at least get the game at a playable
+  state within the next 10 revisions, so stay tuned
+- As stated above with the animation, it is now is animation.c
+- Makefile updated
+- One thing debuggers will notice is that the otherwise very well informative
+  errors have now been removed from the terminal, due to it making errors in the game
+  itself. This will be back up soon, so don't strain yourself!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R11 - Ben Weidenhofer [03/08/2010 9:33AM]
+---------
+- Fixed the major Mix_OpenAudio(); bug
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R10 - Ben Weidenhofer [03/08/2010 4:56AM]
+---------
+- More variables and declerations moved into settings.h,
+  hence intro.c has been cleaned more
+- Added framerate_test.c which will be a tool to calculate client's
+  max frame rate (still under development)
+- The data and images folder have been moved into src for easier compiling
+- The audio bug with Mix_OpenAudio(); still needs fixing... I found out today
+  it's a channel error; tomorrow I'll post online for help and get that fixed
+- Soon I'll begin coding the main menu! Then animation and gameplay will be next
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R09 - Ben Weidenhofer [03/08/2010 3:45AM]
+---------
+- Compiled in MonoDevelop successfully and is now cross-platform coded for Windows,
+  however I myself will NOT compile every revision in windows - linux only :)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R08 - Ben Weidenhofer [01/08/2010 3:55AM]
+---------
+- Loading screen now plays music in "data/music/" (make sure file is named "toneage.wav", 
+  has to be in WAV format or it will not play.)
+- Cleaned up intro.c by switching some declerations to settings.h
+- Minor bugs have been resolved
+- There seems to be a bug when playing toneage.wav when an audio channel is already in use,
+  however I need sleep so that'll be fixed next revision (or later)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R07 - Ben Weidenhofer [01/08/2010 2:35AM]
+---------
+- Fixed a bug in settings.h: SDL_FreeSurface(screen);
+  Can't believe I actually forgot to free the surface of screen *facepalm*
+- Added "Todo" so if you'd like to contribute there's 
+  stuff to work on side that
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R06 - Ben Weidenhofer [31/07/2010 2:33AM]
+---------
+- Added "settings.h" to hold all attributes and stuff
+- intro.c cleaned up
+- A few backgrounds & sprites have now been made
+- A makefile is now in place, so you can just type "make" 
+  instead of having to go through the whole command
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R05 - Ben Weidenhofer [30/07/2010 4:45AM]
+---------
+- Cleaned up intro.c
+- Fixed a couple memory bugs
+- Game is back in progress after months of leaving it...
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R04 - Ben Weidenhofer [19/02/2010 2:50AM]
+---------
+- The menu is vaguely operational
+- Made an animation script to play logo on init();
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R03 - Ben Weidenhofer [18/02/2010 2:03AM]
+---------
+- Cleaned up more some code
+- Some exception faults added
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R02 - Ben Weidenhofer [18/02/2010 12:59AM]
+---------
+- Cleaned up some code, and added more comments
+- Updated intro files
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R01 - Ben Weidenhofer [18/02/2010 12:43AM]
+---------
+- First revision!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
