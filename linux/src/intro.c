@@ -7,20 +7,14 @@
 //  the screen then jumps to the main menu  //
 //////////////////////////////////////////////
 
+#include "audio.c"
 #include "define.h"
 #include "loadimage.h"
 #include "config.c"
 #include "video.c"
 #include "version.c"
-int audio_rate = 22050;
-Uint16 audio_format = AUDIO_S16SYS;
-int audio_channels = 2;
-int audio_buffers = 4096;
-int channel;
 
 bool quit = false;
-
-Mix_Chunk *sound = NULL;
 
 SDL_Surface* intro = NULL;   // intro
 SDL_Surface* options_bg = NULL; // options menu
@@ -102,20 +96,7 @@ int main(int argc, char* args[]) {
 		return 1; 
 	} 
  
-	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) {
-		printf("\nUnable to initialize audio: %s\n", Mix_GetError());
-		exit(1);
-	}
- 
-	sound = Mix_LoadWAV("data/music/super-mario-intro.ogg");
-	if(sound == NULL) {
-		printf("\nUnable to load WAV file: %s\n", Mix_GetError());
-	}
- 
-	channel = Mix_PlayChannel(-1, sound, 0);
-	if(channel == -1) {
-		fprintf(stderr, "\nUnable to play WAV file: %s\n", Mix_GetError());
-	}
+	menu_music(); // Initialize & play menu music
 
 	// Load the images 
 	intro = load_image("images/intro.bmp"); 

@@ -18,7 +18,7 @@ static void config() {
         cout << "Unable to open \"config.cfg\" - creating a new configuration.\n";
           ofstream myfile;
           myfile.open ("config.cfg");
-          myfile << "[HaxWorld auto generated config]\nres_width = 800\nres_height = 600\nblood = true\nvolume = 100\n";
+          myfile << "[HaxWorld auto generated config]\nres_width = 640\nres_height = 480\nblood = true\nvolume = 100\n";
           myfile.close();
     } 
     config >> res_width >> res_height >> volume >> blood;

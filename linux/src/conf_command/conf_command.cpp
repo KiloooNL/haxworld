@@ -4,12 +4,12 @@
 #include <stdio.h>
 using namespace std;
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 char name[80];
-int res_width = SCREEN_WIDTH;
-int res_height = SCREEN_HEIGHT;
+int res_width;
+int res_height;
 bool blood = true;
 int volume = 100;
 ifstream config;
@@ -17,25 +17,26 @@ ifstream config;
 int main() {
 	printf("\nHaxWorld Configuration (Terminal/Command Prompt Version)\n");
     	config.open("config.cfg");
+    	config.close();
     	if (!config) { // if config can't be found, create a new one
         	cout << "Unable to open \"config.cfg\" - creating a new configuration.\n";
           	ofstream myfile;
           	myfile.open ("config.cfg");
-          	myfile << "[HaxWorld auto generated config]\nname = haxworld\nres_width = 800\nres_height = 600\nblood = true\nvolume = 100\n";
+          	myfile << "[HaxWorld auto generated config]\n";
           	myfile.close();
     	}	 
         // characters name
         cout << "Enter characters name: ";
         cin >> name;
 
-        // default resolution, 800x600
+        // default resolution, 640x480
         cout << "\nEnter resolution width: ";
         cin >> res_width;
         cout << "Enter resolution height: ";
         cin >> res_height;
 
-	if(res_width, res_height == 800, 600) {
-        	cout << "\n(RESOLUTION CHOSEN: 800x600 - Default)\n";
+	if(res_width, res_height == 640, 480) {
+        	cout << "\n(RESOLUTION CHOSEN: 640x480 - Default)\n";
 	}
 	else {
         	cout << "\n(RESOLUTION CHOSEN: " << res_width << "x" << res_height << ")\n";
@@ -78,7 +79,6 @@ int main() {
                 cout << "\nSettings have not been saved.\n";
         }   
 
-    	config.close();
     	cout << "Resolution = " << res_width << "x" << res_height << endl; 
 	return 0;
 }

@@ -1,3 +1,12 @@
+R21 - Ben Weidenhofer [30/08/2010 10:00AM]
+--------
+- I messed up a huge thing with conf_command by setting the default resolution to 800x600, but it's actually 640x480
+  so that's been fixed
+- Moved all the audio stuff to "audio.c"
+- Cleaned up some code
+- FYI: Today is my birthday, I'm 15 years old now.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 R20 - Ben Weidenhofer [21/08/2010 10:14PM]
 --------
 - The conf_command tool now works 100%
