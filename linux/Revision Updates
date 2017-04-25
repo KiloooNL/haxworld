@@ -1,3 +1,10 @@
+R16 - Ben Weidenhofer [08/07/2010 3:49PM]
+--------
+- Menu is now being coded, and images for it have been created
+- Fixed menu.bmp - it was in 640x400 resolution, the game runs in 640x480
+  so the display just wouldn't look right
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R15 - Ben Weidenhofer [08/07/2010 4:20AM]
 --------
 - New logo

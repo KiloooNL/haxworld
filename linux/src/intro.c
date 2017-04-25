@@ -11,6 +11,7 @@
 //////////////////////////////////////////////
 
 #include "define.h"
+#include "button.c"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
 int audio_channels = 2;
@@ -23,13 +24,26 @@ SDL_Surface* intro = NULL;   // intro
 SDL_Surface* screen = NULL;  // screen
 SDL_Surface* loading = NULL; // when loading
 SDL_Surface* quitter = NULL; // picture for exit B-)
+SDL_Surface* background = NULL;
+SDL_Surface* spritechar = NULL; // client's character sprite
+
+// buttons
+SDL_Surface* sp = NULL;
+SDL_Surface* mp = NULL;
+SDL_Surface* option = NULL;
+SDL_Surface* about = NULL;
+SDL_Surface* ex = NULL;
+
 SDL_Event event;
 
 static void clean_up() {
 	// Free surfaces
-	SDL_FreeSurface(intro);
-	SDL_FreeSurface(loading);
-
+	SDL_FreeSurface(background);
+	SDL_FreeSurface(sp);
+	SDL_FreeSurface(mp);
+	SDL_FreeSurface(option);
+	SDL_FreeSurface(about);
+	SDL_FreeSurface(ex);
 	apply_surface(0, 0, quitter, screen);
 	SDL_Flip(screen);
 	SDL_Delay(2000);
@@ -49,6 +63,13 @@ static SDL_Surface *load_image(std::string filename) {
 	if(loadedImage != NULL) { 
 		optimizedImage = SDL_DisplayFormat(loadedImage); 
 		SDL_FreeSurface(loadedImage); 
+
+		if(optimizedImage != NULL) { 
+			//Map the color key 
+			// 00FFFF = sort of like... really light blue.
+			Uint32 colorkey = SDL_MapRGB(optimizedImage->format, 0, 0xFF, 0xFF); 
+			SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, colorkey); 
+		} 
 	} 
 	else {
 		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
@@ -90,6 +111,12 @@ int main( int argc, char* args[] ) {
 	intro = load_image("images/intro.bmp"); 
 	loading = load_image("images/loading.bmp"); 
 	quitter = load_image("images/quitter.bmp");
+	background = load_image("images/menu.bmp");
+	sp = load_image("images/buttons/sp.bmp");
+	mp = load_image("images/buttons/mp.bmp");
+	option = load_image("images/buttons/option.bmp");
+	about = load_image("images/buttons/about.bmp");
+	ex = load_image("images/buttons/exit.bmp");
 
 	if(intro == NULL) {
 		printf("Error details: %s\n", SDL_GetError());
@@ -106,11 +133,18 @@ int main( int argc, char* args[] ) {
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
 	apply_surface(111, 330, loading, screen);
+	SDL_FreeSurface(intro);
+	SDL_FreeSurface(loading);	
+	SDL_Flip(screen);
+	SDL_Delay(1000);
 
-	// update the screen
-	if(SDL_Flip(screen) == -1) {
-		return 1;
-	}
+	apply_surface(0, 0, background, screen);
+	apply_surface(207, 129, sp, screen);
+	apply_surface(207, 189, mp, screen);
+	apply_surface(207, 249, option, screen);
+	apply_surface(207, 309, about, screen);
+	apply_surface(207, 369, ex, screen);
+	SDL_Flip(screen);
 
 	while(quit==false) {
 		while(SDL_PollEvent(&event)) {

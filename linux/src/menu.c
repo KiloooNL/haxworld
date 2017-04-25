@@ -11,8 +11,9 @@
 
 #include "define.h"
 
-SDL_Surface* background = NULL;
-SDL_Surface* spritechar = NULL; // client's character sprite
+static SDL_Surface* background = NULL;
+static SDL_Surface* spritechar = NULL; // client's character sprite
+static SDL_Surface* screen = NULL;
 
 void clean_up() {
 	// Free surfaces
@@ -23,6 +24,11 @@ void clean_up() {
 }
 
 SDL_Surface *load_image(std::string filename) { 
+
+	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
+	if(screen == NULL) { 
+		printf("Error details: %s\n", SDL_GetError()); 
+	} 
 
 	SDL_Surface* loadedImage = NULL; 
 	SDL_Surface* optimizedImage = NULL; 
@@ -45,6 +51,11 @@ SDL_Surface *load_image(std::string filename) {
 		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
 		clean_up();	
 	}
+
+	background = load_image("images/menu.bmp");
+	apply_surface(0, 0, background, screen);
+
+	SDL_Flip(screen);
 
 	return optimizedImage; 
 } 
