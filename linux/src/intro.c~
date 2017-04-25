@@ -12,15 +12,10 @@
 
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+#include "SDL/SDL_mixer.h"
 #include "SDL/SDL_ttf.h"
 #include "settings.h"
 #include <string> 
-
-//SDL_Surface* intro = NULL;   // intro
-//SDL_Surface* screen = NULL;  // screen
-//SDL_Surface* loading = NULL; // when loading
-SDL_Event event;
-
 
 SDL_Surface *load_image(std::string filename) { 
 
@@ -35,73 +30,63 @@ SDL_Surface *load_image(std::string filename) {
 		SDL_FreeSurface(loadedImage); 
 	} 
 	else {
-		ERROR_NUM = ERROR_NUM + 1;
-		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
-		clean_up();	
+		error();	
 	}
 
 	return optimizedImage; 
 } 
 
-void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
-
-	SDL_Rect offset; 
-
-	offset.x = x; 
-	offset.y = y;
+int main(int argc, char* args[]) { 
 	
-	SDL_BlitSurface(source, NULL, destination, &offset); 
-} 
-
-int main( int argc, char* args[] ) { 
-
-	if(SDL_Init(SDL_INIT_EVERYTHING) == -1) 
-	{ 
-		return 1; 
-	} 
+	setup_screen();	
 	
-	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
-	if(screen == NULL) 
-	{ 
-		ERROR_NUM = ERROR_NUM + 1;
-		printf("\nError: Could not set resolution of %i x %i with %i BPP.\nExiting now!\n",SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_BPP); 
-		return 1; 
-	} 
-	 
+	//Initialize SDL_mixer 
+	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1) { 
+		error();
+	} 	 
+	
 	SDL_WM_SetCaption("Hax World", NULL); 
 
 	// Load the images 
 	intro = load_image("images/intro.bmp"); 
 	loading = load_image("images/loading.bmp"); 
 
-	if(intro == NULL) {
-		ERROR_NUM = ERROR_NUM + 1;
-		printf("\nError: could not load resource image: images/intro.bmp. Exiting now!\n");
-		clean_up();	
+	if(intro && loading == NULL) {
+		error();
 	} else {
-	}
-
-	if(loading == NULL) {
-		ERROR_NUM = ERROR_NUM + 1;
-		printf("\nError: could not load resource image: images/loading.bmp. Exiting now!\n");
-		clean_up();
- 	} else { 
 	}
 
 	bool quit = false;
 	
-	// show images on screen
-	apply_surface(0, 0, intro, screen); 
-	apply_surface(111, 230, loading, screen);
+        apply_loadscreen();
 
 	// update the screen
 	if(SDL_Flip(screen) == -1) {
 		return 1;
 	}
 
-	while(quit==false) {
+	music = Mix_LoadMUS("data/music/toneage.wav");
+	//If there was a problem loading the music 
+	if(music == NULL)  { 
+		error();
+	} 
+
+	menu_music = Mix_LoadWAV("data/music/toneage.wav");
+	if(menu_music == NULL) { 
+		error();
+	} 
+
+	while(quit == false) {
 		while(SDL_PollEvent(&event)) {
-			
+			if(Mix_PlayChannel(-1, menu_music, 0) == -1) { 
+				error();
+				return 1; 
+
+			if(music == NULL)  { 
+				menu_music = Mix_LoadWAV("data/music/toneage.wav");
+				} 
+			} 
+
 			// if user X'ed out of the window
 			if(event.type == SDL_QUIT)
 			{

@@ -1,4 +1,32 @@
-R07 - Ben Weidenhofer [01/07/2010 12:35PM]
+R10 - Ben Weidenhofer [03/07/2010 4:56AM]
+---------
+- More variables and declerations moved into settings.h,
+  hence intro.c has been cleaned more
+- Added framerate_test.c which will be a tool to calculate client's
+  max frame rate (still under development)
+- The data and images folder have been moved into src for easier compiling
+- The audio bug with Mix_OpenAudio(); still needs fixing... I found out today
+  it's a channel error; tomorrow I'll post online for help and get that fixed
+- Soon I'll begin coding the main menu! Then animation and gameplay will be next
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R09 - Ben Weidenhofer [03/07/2010 3:45AM]
+---------
+- Compiled in MonoDevelop successfully and is now cross-platform coded for Windows,
+  however I myself will NOT compile every revision in windows - linux only :)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R08 - Ben Weidenhofer [01/07/2010 3:55AM]
+---------
+- Loading screen now plays music in "data/music/" (make sure file is named "toneage.wav", 
+  has to be in WAV format or it will not play.)
+- Cleaned up intro.c by switching some declerations to settings.h
+- Minor bugs have been resolved
+- There seems to be a bug when playing toneage.wav when an audio channel is already in use,
+  however I need sleep so that'll be fixed next revision (or later)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+R07 - Ben Weidenhofer [01/07/2010 2:35AM]
 ---------
 - Fixed a bug in settings.h: SDL_FreeSurface(screen);
   Can't believe I actually forgot to free the surface of screen *facepalm*
