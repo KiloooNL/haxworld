@@ -1,11 +1,13 @@
-#include "SDL/SDL.h"
-#include "SDL/SDL_image.h"
-#include "SDL/SDL_ttf.h"
-#include "SDL/SDL_mixer.h"
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL_mixer.h"
 #include <string> 
 
 #ifndef __DEFINE_H__
 #define __DEFINE_H__
+
+#define NUM_SPRITES 200
 
 // Main Menu
 #define SPRITE_MENU 0
@@ -25,8 +27,28 @@
 #define SCREEN_HEIGHT 480
 #define SCREEN_BPP 32
 
+// Sprites
+#define SPRITE_SIZE 32
+#define SPRITE_HEIGHT 0
+#define SPRITE_WIDTH 0
+
 // Error numbers (for debugging)
 #define ERROR_NUM 0
+
+// Other stuff
+static bool quit = false;
+static SDL_Event event;
+
+
+/* Method signatures */
+// alloc.c
+void *xmalloc(size_t n);
+void *xrealloc(void *old, size_t n);
+
+void drawText (SDL_Surface *screen, int font, int x, int y, const char* text);
+
+// Audio
+static Mix_Chunk *sound = NULL;
 
 /* Enumerations */
 typedef enum {
@@ -36,13 +58,6 @@ typedef enum {
 	DIR_LEFT = 0x4,
 	DIR_RIGHT = 0x8,
 } MovementDirection;
-
-typedef enum {
-	CMD_NONE,
-	CMD_NEW_GAME,
-	CMD_RESTART,
-	CMD_QUIT,
-} MenuCommand;
 
 typedef struct config {
 	char *name;
@@ -62,19 +77,22 @@ typedef struct animation {
 } Animation;
 
 class Character { 
-private:  
-int x, y; 
-int xVel, yVel; 
+	private:  
+		int x, y; 
+		int xVel, yVel; 
 
-public: 
-//Initializes the variables 
-Character(); 
-
-void handle_input(); 
-void move(); 
-void show(); 
+	public: 
+		//Initializes the variables 
+		Character(); 
+		void handle_input(); 
+		void move(); 
+		void show(); 
 };
 
+// Text
+void drawText(SDL_Surface *screen, TTF_Font* font, const char* text, int x, int y);
+
+// Apply Surface
 static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
 
 	SDL_Rect offset; 
@@ -83,15 +101,6 @@ static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 	offset.y = y;
 	
 	SDL_BlitSurface(source, NULL, destination, &offset); 
-} 
-
-// version.c
-char* getVersion();
-
-// both server.c and client.c
-int isServer();
-int isClient();
-Config *getConfig();
-void saveConfig();
+}
 
 #endif
