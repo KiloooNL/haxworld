@@ -9,6 +9,7 @@
 
 #include "define.h"
 #include "button.c"
+#include "version.c"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
 int audio_channels = 2;
@@ -48,9 +49,9 @@ static void clean_up() {
 	printf("Showing exit screen...\n");
 	apply_surface(0, 0, quitter, screen);
 	SDL_Flip(screen);
-	SDL_Delay(2000);
+	SDL_Delay(1000);
 	SDL_FreeSurface(quitter);
-	
+	SDL_Delay(1000);
 	printf("Cleaned up successfully!\n");
 	SDL_Quit();
 }
@@ -85,8 +86,14 @@ static SDL_Surface *load_image(std::string filename) {
 int main( int argc, char* args[] ) { 
 
 
+	// Ok... so basically what I want to do here is code a 'version.c' file that detects the games current build version,
+	// then display it here... but i'm not sure how to do that so far :( so for now just put "version/revision xx"
 
-	printf("\nWelcome to HaxWorld.\n");
+	// WELCOME MESSAGE
+	printf("\nWelcome to HaxWorld.");
+	// REVISION
+	version();
+	printf("\n");
 
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1) { 
 		return 1; 
@@ -94,7 +101,7 @@ int main( int argc, char* args[] ) {
 	
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
 	if(screen == NULL) { 
-		printf("\nError details: %s\n", SDL_GetError());
+		printf("\nCould not set resolution of: %ix%i \nError details: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
 		return 1; 
 	} 
  
@@ -147,6 +154,8 @@ int main( int argc, char* args[] ) {
 	SDL_Delay(1000);
 
 	apply_surface(0, 0, background, screen);
+
+	// Menu items
 	apply_surface(207, 129, sp, screen);
 	apply_surface(207, 189, mp, screen);
 	apply_surface(207, 249, option, screen);
@@ -164,8 +173,29 @@ int main( int argc, char* args[] ) {
 				Mix_CloseAudio();
 				//quit
 				quit = true;
-				if(quit == true) {
-					printf("\nUser has exited manually.\n");
+				printf("\nUser has exited manually.\n");
+			}
+			//If a key was pressed 
+			else if(event.type == SDL_KEYDOWN) {
+				switch(event.key.keysym.sym) { 
+					case SDLK_ESCAPE:
+						quit = true;
+						break;
+					case SDLK_UP: 
+						sp = load_image("images/buttons/sp_select.bmp");
+						mp = load_image("images/buttons/mp.bmp");
+						apply_surface(207, 189, mp, screen);
+						apply_surface(207, 129, sp, screen);
+						SDL_Flip(screen);
+						break; 
+					case SDLK_DOWN: 
+						mp = load_image("images/buttons/mp_select.bmp");
+						sp = load_image("images/buttons/sp.bmp");
+
+						apply_surface(207, 189, mp, screen);
+						apply_surface(207, 129, sp, screen);
+						SDL_Flip(screen);
+						break; 
 				}
 			}
 		}

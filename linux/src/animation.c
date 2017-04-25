@@ -10,8 +10,12 @@
 //////////////////////////////////////////////
 
 #include "define.h"
-
 /*
+SDL_Event eventKB;
+
+int CHARACTER_HEIGHT = 1;
+int CHARACTER_WIDTH = 1;
+
 Character::Character() { 
 	//Initialize the offsets 
 	x = 0; 
@@ -22,9 +26,9 @@ Character::Character() {
 } 
 
 void Character::handle_input() { 
-	if(event.type == SDL_KEYDOWN) { 
+	if(eventKB.type == SDL_KEYDOWN) { 
 		//Adjust the velocity 
-		switch(event.key.keysym.sym) { 
+		switch(eventKB.key.keysym.sym) { 
 			case SDLK_UP: yVel -= CHARACTER_HEIGHT / 2; break; 
 			case SDLK_DOWN: yVel += CHARACTER_HEIGHT / 2; break; 
 			case SDLK_LEFT: xVel -= CHARACTER_WIDTH / 2; break; 
