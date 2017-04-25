@@ -1,3 +1,11 @@
+R14 - Ben Weidenhofer [08/07/2010 3:27AM]
+---------
+- Added an image if user quits (this image was taken from ChaoticRage,
+  so I'm not sure if I'm allowed to use it yet I DID create the image;
+  so I guess I own the right to...)
+- A couple of audio/sound effects have been made (these will be used later on)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R13 - Ben Weidenhofer [06/07/2010 4:15AM]
 ---------
 - A lot of definitions in define.h and intro.c are now static to stop

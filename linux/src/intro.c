@@ -22,12 +22,19 @@ Mix_Chunk *sound = NULL;
 SDL_Surface* intro = NULL;   // intro
 SDL_Surface* screen = NULL;  // screen
 SDL_Surface* loading = NULL; // when loading
+SDL_Surface* quitter = NULL; // picture for exit B-)
 SDL_Event event;
 
 static void clean_up() {
 	// Free surfaces
 	SDL_FreeSurface(intro);
 	SDL_FreeSurface(loading);
+	apply_surface(0, 0, quitter, screen);
+
+	SDL_Flip(screen);
+	
+	SDL_Delay(2000);
+	SDL_FreeSurface(quitter);
 
 	SDL_Quit();
 }
@@ -83,6 +90,7 @@ int main( int argc, char* args[] ) {
 	// Load the images 
 	intro = load_image("images/intro.bmp"); 
 	loading = load_image("images/loading.bmp"); 
+	quitter = load_image("images/quitter.bmp");
 
 	if(intro == NULL) {
 		printf("Error details: %s\n", SDL_GetError());
