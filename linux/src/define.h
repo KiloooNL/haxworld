@@ -37,13 +37,6 @@ typedef enum {
 	DIR_RIGHT = 0x8,
 } MovementDirection;
 
-typedef enum {
-	CMD_NONE,
-	CMD_NEW_GAME,
-	CMD_RESTART,
-	CMD_QUIT,
-} MenuCommand;
-
 typedef struct config {
 	char *name;
 	int fullscreen;
@@ -75,6 +68,10 @@ void move();
 void show(); 
 };
 
+// Text
+void drawText (SDL_Surface *screen, int font, int x, int y, const char* text);
+void drawTextAlpha (SDL_Surface *screen, int font, int alpha, int x, int y, const char* text);
+
 static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
 
 	SDL_Rect offset; 
@@ -84,14 +81,5 @@ static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 	
 	SDL_BlitSurface(source, NULL, destination, &offset); 
 } 
-
-// version.c
-char* getVersion();
-
-// both server.c and client.c
-int isServer();
-int isClient();
-Config *getConfig();
-void saveConfig();
 
 #endif

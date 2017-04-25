@@ -8,7 +8,7 @@
 //////////////////////////////////////////////
 
 #include "define.h"
-#include "button.c"
+#include "loadimage.h"
 #include "version.c"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
@@ -16,10 +16,13 @@ int audio_channels = 2;
 int audio_buffers = 4096;
 int channel;
 
+bool quit = false;
+
 Mix_Chunk *sound = NULL;
 
 SDL_Surface* intro = NULL;   // intro
 SDL_Surface* screen = NULL;  // screen
+SDL_Surface* options_bg = NULL; // options menu
 SDL_Surface* loading = NULL; // when loading
 SDL_Surface* quitter = NULL; // picture for exit B-)
 SDL_Surface* background = NULL;
@@ -34,9 +37,18 @@ SDL_Surface* ex = NULL;
 
 SDL_Event event;
 
-static void clean_up() {
-	printf("\nCleaning up...\n");
+static void clean_up_menu () {
+	SDL_FreeSurface(background);
+	SDL_FreeSurface(sp);
+	SDL_FreeSurface(mp);
+	SDL_FreeSurface(option);
+	SDL_FreeSurface(about);
+	SDL_FreeSurface(ex);
+	SDL_FreeSurface(spritechar);
+}
 
+extern void clean_up() {
+	printf("\nCleaning up...\n");
 	printf("Freeing surfaces...\n");
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(sp);
@@ -45,7 +57,7 @@ static void clean_up() {
 	SDL_FreeSurface(about);
 	SDL_FreeSurface(ex);
 	SDL_FreeSurface(spritechar);
-	
+
 	printf("Showing exit screen...\n");
 	apply_surface(0, 0, quitter, screen);
 	SDL_Flip(screen);
@@ -53,37 +65,11 @@ static void clean_up() {
 	SDL_FreeSurface(quitter);
 	SDL_Delay(1000);
 	printf("Cleaned up successfully!\n");
+
 	SDL_Quit();
 }
 
-static SDL_Surface *load_image(std::string filename) { 
-
-	SDL_Surface* loadedImage = NULL; 
-	SDL_Surface* optimizedImage = NULL; 
-
-	loadedImage = SDL_LoadBMP(filename.c_str()); 
-
-	//If nothing went wrong in loading the image 
-	if(loadedImage != NULL) { 
-		optimizedImage = SDL_DisplayFormat(loadedImage); 
-		SDL_FreeSurface(loadedImage); 
-
-		if(optimizedImage != NULL) { 
-			//Map the color key 
-			// 00FFFF = sort of like... really light blue.
-			Uint32 colorkey = SDL_MapRGB(optimizedImage->format, 0, 0xFF, 0xFF); 
-			SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, colorkey); 
-		} 
-	} 
-	else {
-		printf("\nError: could not load resource image: %s. Exiting now!\n",filename.c_str());
-		clean_up();	
-	}
-
-	return optimizedImage; 
-} 
-
-int main( int argc, char* args[] ) { 
+int main(int argc, char* args[]) { 
 
 
 	// Ok... so basically what I want to do here is code a 'version.c' file that detects the games current build version,
@@ -142,8 +128,6 @@ int main( int argc, char* args[] ) {
  	} else { 
 
 	}
-
-	bool quit = false;
 	
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
@@ -181,6 +165,13 @@ int main( int argc, char* args[] ) {
 					case SDLK_ESCAPE:
 						quit = true;
 						break;
+					case SDLK_RETURN:
+						options_bg = load_image("images/background.bmp");
+						apply_surface(0, 0, options_bg, screen);
+						clean_up_menu();
+						SDL_Flip(screen);
+						break;
+					
 					case SDLK_UP: 
 						sp = load_image("images/buttons/sp_select.bmp");
 						mp = load_image("images/buttons/mp.bmp");

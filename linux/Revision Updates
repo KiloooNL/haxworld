@@ -1,3 +1,12 @@
+R19 - Ben Weidenhofer [19/08/2010 12:43AM]
+--------
+- Moved the load_image function to "load_image.h"
+- Added "video.c", this will hold the video stuff, though animation.c is seperate
+- Fixed some minor bugs with SDL_KEYDOWN
+- Made an image called "Credits.bmp", this will be the main image for credits, which I'm still yet
+  to compile a menu button for
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
 R18 - Ben Weidenhofer [16/08/2010 6:51PM]
 --------
 - Added version.c - though at the moment you'll have to enter revision number manually
