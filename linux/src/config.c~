@@ -1,0 +1,210 @@
+#include "SDL/SDL.h"
+#include <stdlib.h>
+#include <confuse.h>
+#include "define.h"
+#include "SDL_rwops_zzip.h"
+
+
+static ClientConfig client_conf;
+
+static void setWindowIcon();
+static void loadConfig();
+static void intro(SDL_Surface *screen);
+
+
+// The client config options
+static cfg_opt_t opts[] =
+{
+	CFG_STR("detail", "high", CFGF_NONE),
+	CFG_STR("name", "unnamed", CFGF_NONE),
+	CFG_INT("resolution", 640480, CFGF_NONE),
+	CFG_BOOL("fullscreen", cfg_false, CFGF_NONE),
+	CFG_STR("transparent-color", "00ffff", CFGF_NONE), // DO NOT CHANGE. FOR DEBUGGING PURPOSES ONLY.
+	CFG_BOOL("player-blood", cfg_false, CFGF_NONE),
+	CFG_INT("volume", 100, CFGF_NONE),    // percent
+	CFG_END()
+};
+
+
+/**
+* The main function of the app
+**/
+int main(int argc, char **argv)
+{
+	printf("Welcome to HaxWorld.\nVersion: %s\nSystem: %s\n", getVersion());
+	
+	loadConfig();
+	
+	// Init SDL
+	if (SDL_Init(SDL_INIT_AUDIO | SDL_INIT_VIDEO) < 0) {
+		fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
+		exit(1);
+	}
+	atexit(SDL_Quit);
+	
+	setWindowIcon();
+	
+	if (client_conf.spriteonmenu) {
+	
+	} else {
+	
+	}
+	
+	// Create the primary screen surface
+	SDL_Surface *screen;
+	
+	if (client_conf.fullscreen) {
+		screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_FULLSCREEN);
+	} else {
+		screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_SWSURFACE);
+	}
+	
+	if (screen == NULL) {
+		fprintf(stderr, "Unable to set %ix%i video: %s\n", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_GetError());
+		exit(1);
+	}
+	
+	char buffer[100];
+	sprintf(buffer, "HaxWorld - %s", getVersion());
+	SDL_WM_SetCaption(buffer, buffer);
+
+	SDL_Delay(1000);
+	exit(0);
+}
+
+
+/**
+* Reads the config file
+**/
+static void loadConfig()
+{
+	cfg_t *cfg;
+	
+	// Set up the config
+	cfg = cfg_init(opts, CFGF_NONE);
+	
+	// Parse
+	if (cfg_parse(cfg, "client.conf") == CFG_PARSE_ERROR) {
+		printf("There was an error loading the config file - using default values\n");
+	}
+	
+	client_conf.name = xmalloc(strlen(cfg_getstr(cfg, "name")) + 1);
+	strcpy(client_conf.name, cfg_getstr(cfg, "name"));
+	
+	client_conf.map = xmalloc(strlen(cfg_getstr(cfg, "map")) + 1);
+	strcpy(client_conf.map, cfg_getstr(cfg, "map"));
+	
+	client_conf.fullscreen = cfg_getbool(cfg, "fullscreen");
+	client_conf.spriteonmenu = cfg_getbool(cfg, "spriteonmenu");
+	client_conf.playerblood = cfg_getbool(cfg, "player-blood");
+	client_conf.hue = cfg_getint(cfg, "hue");
+	client_conf.vol_music = cfg_getint(cfg, "volume-music");
+	client_conf.vol_sound = cfg_getint(cfg, "volume-sound");
+	
+	cfg_free(cfg);
+	
+	// We save straight away to push the defaults into the config
+	saveConfig();
+}
+
+
+/**
+* Saves a new config file
+**/
+void saveConfig()
+{
+	cfg_t *cfg;
+	
+	// Set up the config
+	cfg = cfg_init(opts, CFGF_NONE);
+	
+	// Parse existing config
+	if (cfg_parse(cfg, "client.conf") == CFG_PARSE_ERROR) {
+		printf("There was an error loading the config file - using default values\n");
+	}
+	
+	// Overwrite the config options that are editable
+	cfg_setstr(cfg, "name", client_conf.name);
+	cfg_setstr(cfg, "map", client_conf.map);
+	cfg_setbool(cfg, "fullscreen", client_conf.fullscreen);
+	cfg_setbool(cfg, "spriteonmenu", client_conf.spriteonmenu);
+	cfg_setbool(cfg, "player-blood", client_conf.fullscreen);
+	cfg_setint(cfg, "hue", client_conf.hue);
+	cfg_setint(cfg, "volume-music", client_conf.vol_music);
+	cfg_setint(cfg, "volume-sound", client_conf.vol_sound);
+	
+	FILE *fp = fopen("client.conf", "w");
+	if (fp == NULL) return;
+	cfg_print(cfg, fp);
+	fclose(fp);
+}
+
+
+/**
+* Sets the icon for the window
+**/
+static void setWindowIcon()
+{
+	SDL_Surface *sprite;
+	Uint32 colourkey;
+	SDL_RWops *rw;
+	
+	rw = SDL_RWFromZZIP("sprites/icon.bmp", "r");
+	if (rw == NULL) {
+		fprintf(stderr, "Couldn't load icon: %s\n", SDL_GetError());
+		return;
+	}
+	
+	sprite = SDL_LoadBMP_RW(rw, 0);
+	SDL_FreeRW(rw);
+	
+	if (sprite == NULL) {
+		fprintf(stderr, "Couldn't load icon: %s\n", SDL_GetError());
+		return;
+	}
+	
+	colourkey = SDL_MapRGB(sprite->format, 255, 0, 255);
+	SDL_SetColorKey(sprite, SDL_SRCCOLORKEY, colourkey);
+	SDL_WM_SetIcon (sprite, NULL);
+}
+
+
+int isServer() {return 0;}
+int isClient() {return 1;}
+
+
+/**
+* Gets the client config
+**/
+ClientConfig *getClientConfig()
+{
+	return &client_conf;
+}
+
+
+
+static void intro(SDL_Surface *screen)
+{
+	SDL_Surface *surf = NULL;
+	char buffer[50];
+	int frame;
+	SDL_RWops *rw;
+	
+	for (frame = 0; frame <= 16; frame++) {
+		sprintf(buffer, "intro/frame%i.bmp", frame);
+		
+		rw = SDL_RWFromZZIP(buffer, "r");
+		if (rw == NULL) return;
+		
+		surf = SDL_LoadBMP_RW(rw, 0);
+		SDL_FreeRW(rw);
+		if (surf == NULL) return;
+		
+		SDL_BlitSurface(surf, NULL, screen, NULL);
+		
+		SDL_Flip (screen);
+		SDL_Delay (40);
+	}
+	
+	SDL_Delay(600);
+}

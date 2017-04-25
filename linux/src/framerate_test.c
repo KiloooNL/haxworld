@@ -3,10 +3,7 @@
 //  --------------------------------------	//
 //  This is the frame rate source for Hax World //
 //  What it does:				//
-//  Tests client's maximum frame rate	 	// 
-//					    	//
-//  Coded by Ben Weidenhofer, under the     	//
-//  GPL license,  bla bla bla open source!  	//
+//  Tests client's maximum frame rate	 	//
 //////////////////////////////////////////////////
 
 #include "SDL/SDL.h"

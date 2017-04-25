@@ -7,9 +7,6 @@
 //  What it does:			    //
 //  Defines basic concepts of moving an     //
 //  object around on the screen. 	    //
-//					    //
-//  Coded by Ben Weidenhofer, under the     //
-//  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////
 
 #include "define.h"

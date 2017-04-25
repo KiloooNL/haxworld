@@ -1,0 +1,8 @@
+#include "SDL/SDL.h"
+#include "define.h"
+
+static char* version = VERSION;
+
+char* getVersion() {
+	return version;
+}

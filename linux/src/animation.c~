@@ -13,7 +13,7 @@
 //////////////////////////////////////////////
 
 #include "define.h"
-SDL_Event event;
+
 /*
 Character::Character() { 
 	//Initialize the offsets 

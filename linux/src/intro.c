@@ -5,9 +5,6 @@
 //  What it does:			    //
 //  Displays the introduction animation on  // 
 //  the screen then jumps to the main menu  //
-//					    //
-//  Coded by Ben Weidenhofer, under the     //
-//  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////
 
 #include "define.h"
@@ -37,18 +34,24 @@ SDL_Surface* ex = NULL;
 SDL_Event event;
 
 static void clean_up() {
-	// Free surfaces
+	printf("\nCleaning up...\n");
+
+	printf("Freeing surfaces...\n");
 	SDL_FreeSurface(background);
 	SDL_FreeSurface(sp);
 	SDL_FreeSurface(mp);
 	SDL_FreeSurface(option);
 	SDL_FreeSurface(about);
 	SDL_FreeSurface(ex);
+	SDL_FreeSurface(spritechar);
+	
+	printf("Showing exit screen...\n");
 	apply_surface(0, 0, quitter, screen);
 	SDL_Flip(screen);
 	SDL_Delay(2000);
 	SDL_FreeSurface(quitter);
-
+	
+	printf("Cleaned up successfully!\n");
 	SDL_Quit();
 }
 
@@ -81,29 +84,33 @@ static SDL_Surface *load_image(std::string filename) {
 
 int main( int argc, char* args[] ) { 
 
+
+
+	printf("\nWelcome to HaxWorld.\n");
+
 	if(SDL_Init(SDL_INIT_EVERYTHING) == -1) { 
 		return 1; 
 	} 
 	
 	screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SDL_SWSURFACE); 
 	if(screen == NULL) { 
-		printf("Error details: %s\n", SDL_GetError());
+		printf("\nError details: %s\n", SDL_GetError());
 		return 1; 
 	} 
  
 	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) {
-		printf("Unable to initialize audio: %s\n", Mix_GetError());
+		printf("\nUnable to initialize audio: %s\n", Mix_GetError());
 		exit(1);
 	}
  
 	sound = Mix_LoadWAV("data/music/toneage.wav");
 	if(sound == NULL) {
-		printf("Unable to load WAV file: %s\n", Mix_GetError());
+		printf("\nUnable to load WAV file: %s\n", Mix_GetError());
 	}
  
 	channel = Mix_PlayChannel(-1, sound, 0);
 	if(channel == -1) {
-		fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
+		fprintf(stderr, "\nUnable to play WAV file: %s\n", Mix_GetError());
 	}
 	SDL_WM_SetCaption("Hax World", NULL); 
 
@@ -117,12 +124,13 @@ int main( int argc, char* args[] ) {
 	option = load_image("images/buttons/option.bmp");
 	about = load_image("images/buttons/about.bmp");
 	ex = load_image("images/buttons/exit.bmp");
+	spritechar = load_image("images/sprites/stickman/stickman.bmp");
 
 	if(intro == NULL) {
-		printf("Error details: %s\n", SDL_GetError());
+		printf("\nError details: %s\n", SDL_GetError());
 		clean_up();	
 	} else if(loading == NULL) {
-		printf("Error details: %s\n", SDL_GetError());
+		printf("\nError details: %s\n", SDL_GetError());
 		clean_up();
  	} else { 
 
@@ -144,11 +152,11 @@ int main( int argc, char* args[] ) {
 	apply_surface(207, 249, option, screen);
 	apply_surface(207, 309, about, screen);
 	apply_surface(207, 369, ex, screen);
+	apply_surface(160, 10, spritechar, screen);
 	SDL_Flip(screen);
 
 	while(quit==false) {
 		while(SDL_PollEvent(&event)) {
-			
 			// if user X'ed out of the window
 			if(event.type == SDL_QUIT) {
 				//while(Mix_Playing(channel) != 0);

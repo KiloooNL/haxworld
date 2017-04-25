@@ -97,6 +97,8 @@ return paused;
 
 void stuff() {
 
+	//Open the font 
+	font = TTF_OpenFont( "lazy.ttf", 30 ); 
 	Timer myTimer; 
 	TTF_RenderText_Solid( font, "Press S to start or stop the timer", textColor ); 
 	TTF_RenderText_Solid( font, "Press P to pause or unpause the timer", textColor );
@@ -110,8 +112,6 @@ int main(int argc, char* args[]) {
 	if(screen == NULL)  { 
 		return 1;
 	} 
-	//Open the font 
-	font = TTF_OpenFont( "lazy.ttf", 30 ); 
 
 	int frame = 0; 
 	Timer fps; 

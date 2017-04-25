@@ -1,0 +1,28 @@
+#include "SDL/SDL_ttf.h"
+//Generate the message surfaces 
+
+
+void sp_button() {
+	sp_select = load_image("images/buttons/sp.bmp");
+	apply_surface(207, 129, sp_select, screen);
+}
+void mp_button() {
+
+	mp_select = load_image("images/buttons/mp.bmp");
+	apply_surface(207, 189, mp_select, screen);
+}
+void option_button() {
+	option_select = load_image("images/buttons/option.bmp");
+	apply_surface(207, 249, option_select, screen);
+
+}
+void about_button() {
+	about_select = load_image("images/buttons/about.bmp");
+	apply_surface(207, 309, about_select, screen);
+
+}
+void ex_button() {
+	ex_select = load_image("images/buttons/exit.bmp");
+	apply_surface(207, 369, ex_select, screen);
+
+}

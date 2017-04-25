@@ -1,3 +1,14 @@
+R17 - Ben Weidenhofer [09/07/2010 6:51PM]
+--------
+- Fixed quitter.bmp (was in the wrong resolution)
+- Added color mapping for transparency in images (00FFFF)
+- Fixed a couple of images as they were in PNG format,
+  SDL_image only accepts BMP
+- I upgraded Ubuntu to 10.04 and it removed the SDL libraries for some reason
+  and until I can get on the internet looks like it'll be a while until the
+  next revision will be out. Sorry
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 R16 - Ben Weidenhofer [08/07/2010 3:49PM]
 --------
 - Menu is now being coded, and images for it have been created
