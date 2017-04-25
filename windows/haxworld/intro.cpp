@@ -10,7 +10,7 @@
 //  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////
 
-#include "define.h" 
+#include "define.h"
 int audio_rate = 22050;
 Uint16 audio_format = AUDIO_S16SYS;
 int audio_channels = 2;
@@ -22,17 +22,23 @@ Mix_Chunk *sound = NULL;
 SDL_Surface* intro = NULL;   // intro
 SDL_Surface* screen = NULL;  // screen
 SDL_Surface* loading = NULL; // when loading
+SDL_Surface* quitter = NULL; // picture for exit B-)
 SDL_Event event;
 
-void clean_up() {
+static void clean_up() {
 	// Free surfaces
 	SDL_FreeSurface(intro);
 	SDL_FreeSurface(loading);
 
+	apply_surface(0, 0, quitter, screen);
+	SDL_Flip(screen);
+	SDL_Delay(2000);
+	SDL_FreeSurface(quitter);
+
 	SDL_Quit();
 }
 
-SDL_Surface *load_image(std::string filename) { 
+static SDL_Surface *load_image(std::string filename) { 
 
 	SDL_Surface* loadedImage = NULL; 
 	SDL_Surface* optimizedImage = NULL; 
@@ -50,16 +56,6 @@ SDL_Surface *load_image(std::string filename) {
 	}
 
 	return optimizedImage; 
-} 
-
-void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination) { 
-
-	SDL_Rect offset; 
-
-	offset.x = x; 
-	offset.y = y;
-	
-	SDL_BlitSurface(source, NULL, destination, &offset); 
 } 
 
 int main( int argc, char* args[] ) { 
@@ -93,6 +89,7 @@ int main( int argc, char* args[] ) {
 	// Load the images 
 	intro = load_image("images/intro.bmp"); 
 	loading = load_image("images/loading.bmp"); 
+	quitter = load_image("images/quitter.bmp");
 
 	if(intro == NULL) {
 		printf("Error details: %s\n", SDL_GetError());
@@ -108,7 +105,7 @@ int main( int argc, char* args[] ) {
 	
 	// show images on screen
 	apply_surface(0, 0, intro, screen); 
-	apply_surface(111, 230, loading, screen);
+	apply_surface(111, 330, loading, screen);
 
 	// update the screen
 	if(SDL_Flip(screen) == -1) {
@@ -120,7 +117,7 @@ int main( int argc, char* args[] ) {
 			
 			// if user X'ed out of the window
 			if(event.type == SDL_QUIT) {
-				while(Mix_Playing(channel) != 0);
+				//while(Mix_Playing(channel) != 0);
 				Mix_FreeChunk(sound);
 				Mix_CloseAudio();
 				//quit

@@ -1,13 +1,13 @@
 //////////////////////////////////////////////
-//  Hax World			            //
+//  Hax World			     		        //
 //  --------------------------------------  //
 //  This is the animation source for        //
-//  HaxWorld.				    //
-//					    //
-//  What it does:			    //
+//  HaxWorld.							    //
+//					 					    //
+//  What it does:						    //
 //  Defines basic concepts of moving an     //
-//  object around on the screen. 	    //
-//					    //
+//  object around on the screen. 	 	    //
+//					    					//
 //  Coded by Ben Weidenhofer, under the     //
 //  GPL license,  bla bla bla open source!  //
 //////////////////////////////////////////////

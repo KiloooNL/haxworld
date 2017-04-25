@@ -3,20 +3,19 @@
   <MonoDevelop.Ide.DebuggingService>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService>
-  <MonoDevelop.Ide.Workbench ActiveDocument="haxworld/intro.cpp" ctype="Workbench">
+  <MonoDevelop.Ide.Workbench ActiveDocument="haxworld/menu.cpp" ctype="Workbench">
     <Files>
-      <File FileName="haxworld/intro.cpp" Line="56" Column="1" />
-      <File FileName="haxworld/animation.cpp" Line="37" Column="5" />
+      <File FileName="haxworld/intro.cpp" Line="134" Column="2" />
+      <File FileName="haxworld/animation.cpp" Line="2" Column="25" />
       <File FileName="haxworld/framerate_test.c" Line="27" Column="1" />
       <File FileName="haxworld/audio.cpp" Line="2" Column="23" />
+      <File FileName="haxworld/define.h" Line="97" Column="7" />
+      <File FileName="haxworld/menu.cpp" Line="50" Column="3" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="haxworld" expanded="True">
-            <Node name="intro.cpp" selected="True" />
-          </Node>
-          <Node name="Packages" expanded="True" />
+          <Node name="haxworld" expanded="True" selected="True" />
           <Node name="Packages" expanded="True" />
         </State>
       </Pad>

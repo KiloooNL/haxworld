@@ -44,5 +44,6 @@
     <Compile Include="intro.cpp" />
     <Compile Include="animation.cpp" />
     <Compile Include="audio.cpp" />
+    <Compile Include="menu.cpp" />
   </ItemGroup>
 </Project>
